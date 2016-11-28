@@ -12,6 +12,26 @@
 
 char title[] = "Homework";
 
+class Node {
+public:
+  Node(Vector3f _pos) : position(_pos) {}
+  Vector3f position;
+  int vertexIndex;
+};
+
+class ControlNode : Node {
+public:
+  bool active;
+  Node above, right;
+
+  ControlNode(Vector3f _pos, bool _active, float squareSize) : Node(_pos) {
+    active = _active;
+    above = *new Node(position + Vector3f::FORWARD * squareSize/2.0f);
+    right = *new Node(position + Vector3f::RIGHT * squareSize/2.0f);
+  }
+    
+};
+
 void initGL() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClearDepth(1.0f);
@@ -50,5 +70,6 @@ int main(int argc, char** argv) {
     initGL();
     glutMainLoop();
     Vector3f v;
+    
     return 0;
 }
